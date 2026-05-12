@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Phone, MapPin, Loader2, CheckCircle, AlertCircle, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+gssap.registerPlugin(ScrollTrigger);
 
 const businessStages = [
   'Just starting',
@@ -24,22 +24,6 @@ export default function ContactSection({ preselectedStage }: ContactSectionProps
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    stage: preselectedStage || '',
-    message: '',
-  });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [statusMsg, setStatusMsg] = useState('');
-
-  useEffect(() => {
-    if (preselectedStage) {
-      setFormData((prev) => ({ ...prev, stage: preselectedStage }));
-    }
-  }, [preselectedStage]);
-
   useEffect(() => {
     if (!sectionRef.current || !leftRef.current || !rightRef.current) return;
     const tl = gsap.timeline({
@@ -50,32 +34,7 @@ export default function ContactSection({ preselectedStage }: ContactSectionProps
     return () => { tl.kill(); };
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('loading');
-    try {
-      const res = await fetch('https://formspree.io/f/mrejjowj', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setStatus('success');
-        setStatusMsg(data.message || 'Thank you! We will contact you shortly.');
-        setFormData({ name: '', email: '', phone: '', stage: '', message: '' });
-      } else {
-        setStatus('error');
-        setStatusMsg(data.error || 'Something went wrong. Please try again.');
-      }
-    } catch {
-      setStatus('error');
-      setStatusMsg('Network error. Please check your connection and try again.');
-    }
-  };
-
-  const inputClass =
-    'w-full bg-bg-secondary border border-[rgba(200,150,62,0.15)] rounded-card px-4 py-3 text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-gold transition-colors duration-200';
+  const inputClass = 'w-full bg-bg-secondary border border-[rgba(200,150,62,0.15)] rounded-card px-4 py-3 text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-gold transition-colors duration-200';
 
   return (
     <section id="contact" ref={sectionRef} className="bg-bg-primary section-padding content-padding pb-16">
@@ -87,7 +46,7 @@ export default function ContactSection({ preselectedStage }: ContactSectionProps
               Ready to Launch?
             </h2>
             <p className="text-text-secondary text-lg leading-relaxed mb-10 max-w-md text-balance">
-              Book a free 30-minute consultation. We&apos;ll assess your needs and recommend
+              Book a free 30-minute consultation. We'll assess your needs and recommend
               the right stage to start with.
             </p>
 
@@ -120,104 +79,41 @@ export default function ContactSection({ preselectedStage }: ContactSectionProps
                 </span>
                 <span className="text-text-secondary text-sm">Gaborone, Botswana</span>
               </div>
-              {/* WhatsApp quick link */}
-              <a
-                href="https://wa.me/26772402849?text=Hello%20Prospero%2C%20I'm%20interested%20in%20your%20business%20launch%20services"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-[#25D366] hover:text-[#128C7E] transition-colors mt-2"
-              >
+              <a href="https://wa.me/26772402849?text=Hello%20Prospero%2C%20I'm%20interested%20in%20your%20business%20launch%20services" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#25D366] hover:text-[#128C7E] transition-colors mt-2">
                 <MessageCircle className="w-4 h-4" />
                 Chat on WhatsApp
               </a>
             </div>
           </div>
 
-          {/* Right: Contact Form */}
+          {/* Right: Formspree Form */}
           <div ref={rightRef}>
-            {status === 'success' ? (
-              <div className="bg-bg-secondary rounded-card p-8 text-center border border-success/30">
-                <CheckCircle className="w-12 h-12 text-success mx-auto mb-4" />
-                <h3 className="font-display text-xl text-text-primary mb-2">Message Sent!</h3>
-                <p className="text-text-secondary text-sm mb-6">{statusMsg}</p>
-                <button onClick={() => setStatus('idle')} className="btn-secondary text-sm">
-                  Send Another Message
-                </button>
+            <form action="https://formspree.io/f/mrejjowj" method="POST" className="space-y-5">
+              <div>
+                <input type="text" name="name" placeholder="Your Name *" className={inputClass} required />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Your Name *"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className={inputClass}
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Email Address *"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className={inputClass}
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="tel"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <select
-                    value={formData.stage}
-                    onChange={(e) => setFormData({ ...formData, stage: e.target.value })}
-                    className={`${inputClass} appearance-none cursor-pointer`}
-                  >
-                    <option value="">Select your business stage</option>
-                    {businessStages.map((stage) => (
-                      <option key={stage} value={stage}>{stage}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <textarea
-                    placeholder="Tell us about your business idea..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className={`${inputClass} min-h-[120px] resize-none`}
-                    rows={4}
-                  />
-                </div>
-                {status === 'error' && (
-                  <div className="flex items-center gap-2 text-red-400 text-sm">
-                    <AlertCircle className="w-4 h-4" />
-                    {statusMsg}
-                  </div>
-                )}
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
-                >
-                  {status === 'loading' ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    'Book Consultation'
-                  )}
-                </button>
-              </form>
-            )}
+              <div>
+                <input type="email" name="email" placeholder="Email Address *" className={inputClass} required />
+              </div>
+              <div>
+                <input type="tel" name="phone" placeholder="Phone Number" className={inputClass} />
+              </div>
+              <div>
+                <select name="stage" defaultValue={preselectedStage || ''} className={`${inputClass} appearance-none cursor-pointer`}>
+                  <option value="">Select your business stage</option>
+                  {businessStages.map((stage) => (
+                    <option key={stage} value={stage}>{stage}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <textarea name="message" placeholder="Tell us about your business idea..." className={`${inputClass} min-h-[120px] resize-none`} rows={4} />
+              </div>
+              <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+              <input type="hidden" name="_subject" value="New Prospero Lead" />
+              <input type="hidden" name="_replyto" value="info@prosperokings.com" />
+              <button type="submit" className="btn-primary w-full">Book Consultation</button>
+            </form>
           </div>
         </div>
       </div>
