@@ -13,7 +13,7 @@ const features = [
   'Track scans via analytics',
 ];
 
-const SITE_URL = 'https://business-services-wine.vercel.app/';
+const SITE_URL = 'https://business-services-three.vercel.app/';
 const WHATSAPP_URL = 'https://wa.me/26772402849?text=Hello%20Prospero%2C%20I%27m%20interested%20in%20your%20business%20launch%20services.%20Please%20share%20more%20information.';
 const EMAIL_URL = 'mailto:info@prosperokings.com?subject=Business%20Launch%20Inquiry&body=Hello%20Prospero%2C%0A%0AI%20am%20interested%20in%20your%20business%20launch%20services.%20Please%20contact%20me.%0A%0AThank%20you.';
 

@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Shield, Globe, MessageCircle, Mail, Download, Printer } from 'lucide-react';
 
-const SITE_URL = 'https://business-services-wine.vercel.app/';
+const SITE_URL = 'https://business-services-three.vercel.app/';
 const WHATSAPP_URL = 'https://wa.me/26772402849?text=Hello%20Prospero%2C%20I%27m%20interested%20in%20your%20business%20launch%20services.%20Please%20share%20more%20information.';
 const EMAIL_URL = 'mailto:info@prosperokings.com?subject=Business%20Launch%20Inquiry';
 
