@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 14% 5%;
+    --foreground: 36 33% 94%;
+    --card: 36 14% 9%;
+    --card-foreground: 36 33% 94%;
+    --popover: 36 14% 9%;
+    --popover-foreground: 36 33% 94%;
+    --primary: 38 55% 51%;
+    --primary-foreground: 36 14% 5%;
+    --secondary: 36 14% 12%;
+    --secondary-foreground: 36 33% 94%;
+    --muted: 36 14% 12%;
+    --muted-foreground: 30 10% 44%;
+    --accent: 38 55% 51%;
+    --accent-foreground: 36 14% 5%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 38 55% 51% / 0.15;
+    --input: 36 14% 12%;
+    --ring: 38 55% 51%;
+    --radius: 0.625rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-bg-primary text-text-primary font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(200, 150, 62, 0.3);
+    color: #F5F0E8;
+  }
+}
+
+@layer components {
+  .section-padding {
+    padding-top: clamp(6rem, 12vh, 10rem);
+    padding-bottom: clamp(6rem, 12vh, 10rem);
+  }
+
+  .content-padding {
+    padding-left: clamp(1.5rem, 4vw, 4rem);
+    padding-right: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-accent-gold text-bg-primary font-body font-medium rounded-pill transition-all duration-300;
+  }
+  .btn-primary:hover {
+    @apply bg-accent-amber;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-transparent border border-accent-gold text-accent-gold font-body font-medium rounded-pill transition-all duration-300;
+  }
+  .btn-secondary:hover {
+    @apply bg-accent-gold text-bg-primary;
+  }
+
+  .section-label {
+    @apply text-xs font-body font-medium tracking-[0.08em] uppercase text-accent-gold;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
