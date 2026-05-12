@@ -1,20 +1,9 @@
+cat > vercel.json << 'EOF'
 {
   "rewrites": [
     {
-      "source": "/api/contact",
-      "destination": "/api/contact.js"
-    },
-    {
-      "source": "/api/leads",
-      "destination": "/api/leads.js"
-    },
-    {
-      "source": "/qr",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/admin",
-      "destination": "/index.html"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
       "source": "/(.*)",
@@ -22,3 +11,4 @@
     }
   ]
 }
+EOF

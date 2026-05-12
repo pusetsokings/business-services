@@ -1,3 +1,4 @@
+cat > api / leads.js << 'EOF'
 const mongoose = require('mongoose');
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -49,3 +50,4 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch leads', details: err.message });
   }
 };
+EOF

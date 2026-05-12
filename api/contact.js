@@ -1,3 +1,4 @@
+cat > api / contact.js << 'EOF'
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
@@ -85,7 +86,7 @@ module.exports = async (req, res) => {
               <tr><td style="padding: 8px 0; color: #A69B8C; vertical-align: top;">Message</td><td style="padding: 8px 0;">${message || '-'}</td></tr>
             </table>
             <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(200,150,62,0.2);">
-              <a href="https://business-services-wine.vercel.app/" style="color: #C8963E; text-decoration: none;">View Dashboard &rarr;</a>
+              <a href="https://business-services-three.vercel.app/" style="color: #C8963E; text-decoration: none;">View Dashboard &rarr;</a>
             </div>
           </div>
         `,
@@ -105,3 +106,4 @@ module.exports = async (req, res) => {
       : 'Thank you! Your inquiry has been received. We will contact you shortly.',
   });
 };
+EOF
